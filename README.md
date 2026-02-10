@@ -39,7 +39,7 @@ TBD: One-paragraph summary of the project, data source, and the main question.
    - `pre-commit install`
    - `pre-commit install --hook-type pre-push`
 
-## Workflow
+## Workflow 
 - Use notebooks for exploration and prototyping.
 - Move reusable code into `src/` as it stabilizes.
 - Keep data under `data/` and do not commit raw datasets.
