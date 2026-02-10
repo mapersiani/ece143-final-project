@@ -16,7 +16,7 @@ jobs:
           environment-file: environment.yml
           activate-environment: ece143-final
           auto-activate-base: false
-          miniforge-variant: Mambaforge
+          miniforge-variant: Miniforge3
           miniforge-version: latest
 
       - name: Lint + Format Check
