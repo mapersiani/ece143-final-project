@@ -5,6 +5,8 @@ dependencies:
   - python=3.10
   - numpy
   - pandas
+  - fsspec
+  - huggingface_hub
   - matplotlib
   - seaborn
   - scikit-learn

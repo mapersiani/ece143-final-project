@@ -1,0 +1,501 @@
+{
+  "run_id": "20260306_223043",
+  "customers": [
+    {
+      "security_no": "NK8DB3U",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.990238740458604,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "NK8DB3U",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.990238740458604,
+        "churn_risk_score": 1,
+        "intervention_type": "vip-benefit",
+        "primary_goal": "Reduce Churn Risk",
+        "offer_type": "VIP Benefit",
+        "channel": "email",
+        "treatment_label": "VIP Benefit",
+        "reasoning": "High loyalty points and short tenure indicate a high risk of churn. VIP benefit is the baseline intervention type for this segment."
+      },
+      "message": {
+        "security_no": "NK8DB3U",
+        "channel": "email",
+        "email_subject": "Exclusive VIP Benefit Offer",
+        "email_body": "We want to make sure you get the most out of your loyalty points. Here's an exclusive offer: 10% off your next purchase.",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "YN8ZX7A",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9894151837640413,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "YN8ZX7A",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9894151837640413,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "High support risk (1) and short tenure indicate a need for immediate support recovery"
+      },
+      "message": {
+        "security_no": "YN8ZX7A",
+        "channel": "email",
+        "email_subject": "We want to make sure you get the most out of your purchase!",
+        "email_body": "Hi, We noticed that your recent purchase was a while ago. Here's an exclusive offer to help you restock and save: 10% off your next order. Click this link to redeem: [insert link].",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "W6D4LHA",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9889709188419012,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "W6D4LHA",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9889709188419012,
+        "churn_risk_score": 1,
+        "intervention_type": "discount",
+        "primary_goal": "Reduce Churn Risk",
+        "offer_type": "Percentage Discount",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Discount",
+        "reasoning": "High price sensitivity and low engagement segment"
+      },
+      "message": {
+        "security_no": "W6D4LHA",
+        "channel": "email",
+        "email_subject": "Exclusive Discount for Loyal Customers Like You!",
+        "email_body": "We want to make sure you get the most out of your purchases. As a valued customer, we're offering you an exclusive 10% discount on your next order! Click here to redeem: [link]."
+      }
+    },
+    {
+      "security_no": "4XMZGUM",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9886959092917328,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "4XMZGUM",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9886959092917328,
+        "churn_risk_score": 1,
+        "intervention_type": "discount",
+        "primary_goal": "Reduce Churn Risk",
+        "offer_type": "Discount Offer",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Discount",
+        "reasoning": "High price sensitivity and low engagement segment justify a discount intervention."
+      },
+      "message": {
+        "security_no": "4XMZGUM",
+        "channel": "email",
+        "email_subject": "Exclusive Offer for You: Boost Your Savings!",
+        "email_body": "We want to make sure you get the most out of your purchases. Here's an exclusive offer just for you: 15% off your next order! Click this link to redeem your discount: [insert link].",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "2W6QNJE",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9885234699107828,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "2W6QNJE",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9885234699107828,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Reduce Churn Risk",
+        "offer_type": "Support Recovery Offer",
+        "channel": "email",
+        "treatment_label": "Service Recovery Email",
+        "reasoning": "High support risk (support_risk=1) and short tenure (top_drivers: high average order value; short tenure)"
+      },
+      "message": {
+        "security_no": "2W6QNJE",
+        "channel": "email",
+        "email_subject": "Exclusive Offer for a Smoother Experience",
+        "email_body": "We want to make sure you get the most out of your purchase. As someone who's been with us for a short time, we're offering you an exclusive 10% discount on your next order. Click this link to redeem your offer: [insert link].",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "YBFSWXJ",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.988388542923946,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "YBFSWXJ",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.988388542923946,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery Offer",
+        "channel": "email",
+        "treatment_label": "Service Recovery for VIP-At-Risk",
+        "reasoning": "High support risk and high loyalty points indicate a strong need for service recovery to prevent churn."
+      },
+      "message": {
+        "security_no": "YBFSWXJ",
+        "channel": "email",
+        "email_subject": "Exclusive Offer: Boost Your Loyalty Points",
+        "email_body": "Dear VIP-At-Risk Customer,\n\nWe want to make sure you get the most out of your loyalty points. Here's an exclusive offer to help you boost your rewards: \n\nClick here to redeem now: [insert link]\n\nBest regards, [Your Name]",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "YG4KTEH",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.988194880412783,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "YG4KTEH",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.988194880412783,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery Offer",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Support Recovery",
+        "reasoning": "High support risk and short tenure justify service recovery intervention"
+      },
+      "message": {
+        "security_no": "YG4KTEH",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for Standard-At-Risk Customers",
+        "email_body": "We want to make sure you get the most out of your purchase. As a valued customer, we're offering exclusive support recovery services tailored to your needs. Click here to learn more and claim your offer.",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "JO6QG54",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.9881835786470649,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "JO6QG54",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.9881835786470649,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "VIP-At-Risk Support Recovery",
+        "reasoning": "support_risk=1; high loyalty points; long tenure"
+      },
+      "message": {
+        "security_no": "JO6QG54",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for VIP-At-Risk Customers",
+        "email_body": "We want to make sure you get the most out of your loyalty points. Enjoy a 20% discount on your next purchase by clicking this link: [insert link]."
+      }
+    },
+    {
+      "security_no": "W7EEJUC",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9881469545330178,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "W7EEJUC",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9881469545330178,
+        "churn_risk_score": 1,
+        "intervention_type": "education",
+        "primary_goal": "Churn Prevention",
+        "offer_type": "Educational Content",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk-Education",
+        "reasoning": "Low support risk and normal price sensitivity; education intervention type is preferred over discount or VIP benefit"
+      },
+      "message": {
+        "security_no": "W7EEJUC",
+        "channel": "email",
+        "email_subject": "Unlock Exclusive Tips to Boost Loyalty",
+        "email_body": "Hi there,\nWe want to make sure you get the most out of your purchases with us.\nHere's an exclusive offer: \n\nClick here to access our loyalty tips and tricks: https://example.com/loyalty-tips\n\nBest, [Your Name]\n",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "3UVF5Q2",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.988128403364874,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "3UVF5Q2",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.988128403364874,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "support_risk=1; high average order value"
+      },
+      "message": {
+        "security_no": "3UVF5Q2",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for High Value Customers",
+        "email_body": "We want to make sure you get the most out of your purchase experience. As a valued high-value customer, we're offering you exclusive support recovery services. Click this link to learn more and start receiving personalized support today!",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "GL8FRF3",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9880324644862452,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "GL8FRF3",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9880324644862452,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Recovery Offer",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Recovery",
+        "reasoning": "Support risk is high, and the customer has shown low loyalty points despite a high average order value. Service recovery is necessary to prevent churn."
+      },
+      "message": {
+        "security_no": "GL8FRF3",
+        "channel": "email",
+        "email_subject": "Exclusive Recovery Offer for Standard-At-Risk Customers",
+        "email_body": "We want to make sure you get the most out of your purchase. Here's an exclusive $100 recovery offer, just for you. Click this link to redeem: [insert link]."
+      }
+    },
+    {
+      "security_no": "O8LW1S7",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.9878973392500384,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "O8LW1S7",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.9878973392500384,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Reduce Churn Risk",
+        "offer_type": "VIP Benefits",
+        "channel": "email",
+        "treatment_label": "Service Recovery for VIP-At-Risk",
+        "reasoning": "High support risk and short tenure justify service recovery, while high loyalty points and average order value suggest VIP benefits."
+      },
+      "message": {
+        "security_no": "O8LW1S7",
+        "channel": "email",
+        "email_subject": "Exclusive Service Recovery for VIP-At-Risk",
+        "email_body": "We want to make sure you get the most out of your loyalty points. Here's an exclusive offer: 10% off your next purchase. Click here to redeem: [link].",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "1KBSCKU",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.9878743331012324,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "1KBSCKU",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.9878743331012324,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery for VIP-At-Risk",
+        "reasoning": "support_risk=1; high loyalty points; short tenure"
+      },
+      "message": {
+        "security_no": "1KBSCKU",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for VIP-At-Risk",
+        "email_body": "We want to make sure you get the most out of your loyalty points. Here's an exclusive offer: 10% discount on your next purchase. Click here to redeem now!",
+        "sms_body": "VIP-At-Risk, we're here to help. Get 10% off your next buy! Reply with 'REDEEM' to claim."
+      }
+    },
+    {
+      "security_no": "F369MI2",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9878440038992136,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "F369MI2",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9878440038992136,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "support_risk=1; high churn probability"
+      },
+      "message": {
+        "security_no": "F369MI2",
+        "channel": "email",
+        "email_subject": "We're here to help you get the most out of your purchase!",
+        "email_body": "Hi there,\n\nWe noticed that you've had a recent issue with our service. Our dedicated support team is ready to help you resolve it and prevent any further problems.\n\nClick this link to access exclusive support resources: [insert link]\n\nBest regards, [Your Company]",
+        "sms_body": "Hi, we're here to help. Recent issue? Reply 'YES' for support"
+      }
+    },
+    {
+      "security_no": "BIDN475",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.9876644721672072,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "BIDN475",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.9876644721672072,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "VIP Benefits",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "Support risk is high and customer is in VIP-At-Risk segment, so service recovery is justified."
+      },
+      "message": {
+        "security_no": "BIDN475",
+        "channel": "email",
+        "email_subject": "Exclusive VIP Benefits to Keep You Engaged",
+        "email_body": "Hi there,\n\nWe want to make sure you get the most out of your loyalty program. As a valued member, we're offering exclusive benefits to help you stay engaged.\nClick this link to learn more: https://example.com/vip-benefits\nBest regards, [Your Name]\n",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "DM2W8MJ",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.987495184879955,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "DM2W8MJ",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.987495184879955,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "High support risk and high price sensitivity justify service recovery intervention."
+      },
+      "message": {
+        "security_no": "DM2W8MJ",
+        "channel": "email",
+        "email_subject": "Exclusive Support Offer for You",
+        "email_body": "We want to make sure you get the most out of your purchase. As a valued customer, we're offering exclusive support to help with any issues.",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "KNFW8M6",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9873386618252248,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "KNFW8M6",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9873386618252248,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Support Recovery",
+        "reasoning": "High support risk and short tenure justify service recovery intervention"
+      },
+      "message": {
+        "security_no": "KNFW8M6",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for You",
+        "email_body": "We want to make sure you get the most out of your purchase. Here's an exclusive offer: Get 20% off your next order with our premium support service. Click this link to learn more and redeem your discount.",
+        "sms_body": ""
+      }
+    },
+    {
+      "security_no": "T47JBRX",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.9873090558553316,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "T47JBRX",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.9873090558553316,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Prevent Churn",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "Service Recovery",
+        "reasoning": "High support risk and short tenure justify service recovery intervention"
+      },
+      "message": {
+        "security_no": "T47JBRX",
+        "channel": "email",
+        "email_subject": "We're here to help you get the most out of your purchase!",
+        "email_body": "Hi there,\n\nWe noticed that it's been a while since your last purchase. We want to make sure you get the most out of our products and services.\n\nHere's an exclusive offer: Get 10% off your next order when you click this link [insert link].\n\nIf you have any questions or need assistance, please reply to this email or visit your account for support.\n\nBest regards,\n[Your Name]",
+        "sms_body": "Hi, we noticed it's been a while since your last purchase. Get 10% off next order by replying 'REDEEM' to [insert SMS code]"
+      }
+    },
+    {
+      "security_no": "XPIVR32",
+      "segment": "Standard-At-Risk",
+      "churn_probability": 0.987268253196854,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "XPIVR32",
+        "segment": "Standard-At-Risk",
+        "churn_probability": 0.987268253196854,
+        "churn_risk_score": 1,
+        "intervention_type": "education",
+        "primary_goal": "Reduce churn risk",
+        "offer_type": "email-based education",
+        "channel": "email",
+        "treatment_label": "Standard-At-Risk Education",
+        "reasoning": "High price sensitivity and low engagement segment justify a focus on education to improve loyalty points."
+      },
+      "message": {
+        "security_no": "XPIVR32",
+        "channel": "email",
+        "email_subject": "Exclusive Tips to Boost Loyalty Points",
+        "email_body": "Hi there,\nWe want to make sure you get the most out of your purchases. Here's an exclusive offer: click the link below to learn how to increase your loyalty points.\n\n[Boost Loyalty Points](link)\nBest, [Your Name]\n"
+      }
+    },
+    {
+      "security_no": "MUID76L",
+      "segment": "VIP-At-Risk",
+      "churn_probability": 0.9871680336265182,
+      "churn_risk_score": 1,
+      "strategy": {
+        "security_no": "MUID76L",
+        "segment": "VIP-At-Risk",
+        "churn_probability": 0.9871680336265182,
+        "churn_risk_score": 1,
+        "intervention_type": "service-recovery",
+        "primary_goal": "Churn Prevention",
+        "offer_type": "Support Recovery",
+        "channel": "email",
+        "treatment_label": "VIP-At-Risk Support Recovery",
+        "reasoning": "High support risk and short tenure justify service recovery intervention."
+      },
+      "message": {
+        "security_no": "MUID76L",
+        "channel": "email",
+        "email_subject": "Exclusive Support Recovery Offer for VIP-At-Risk Customers",
+        "email_body": "Dear valued customer,\nWe want to make sure you get the most out of your experience with us.\n\nHere's an exclusive offer: \nGet 10% off your next purchase and dedicated support from our team. Click this link to redeem your offer: [insert link].\n\nBest regards, [Your Name]",
+        "sms_body": ""
+      }
+    }
+  ]
+}
