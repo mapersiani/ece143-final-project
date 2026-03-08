@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: churn_user
+      POSTGRES_PASSWORD: churn_pass
+      POSTGRES_DB: churn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U churn_user -d churn_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mlflow:
+    image: python:3.12-slim
+    working_dir: /mlflow
+    # allowed-hosts '*' required for MLFlow 2.20+ security middleware to accept container-to-container traffic
+    command: >-
+      bash -c "pip install mlflow psycopg2-binary --quiet &&
+      mlflow server
+      --host 0.0.0.0
+      --port 5001
+      --backend-store-uri postgresql://churn_user:churn_pass@postgres:5432/churn_db
+      --default-artifact-root /mlflow/artifacts
+      --allowed-hosts '*'"
+    ports:
+      - "5001:5001"
+    volumes:
+      - mlflow_artifacts:/mlflow/artifacts
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    # env_file loads .env from project root (one level up from docker/)
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql://churn_user:churn_pass@postgres:5432/churn_db
+      MLFLOW_TRACKING_URI: http://mlflow:5001
+      MAX_DEBATE_ROUNDS: ${MAX_DEBATE_ROUNDS:-5}
+      CONSENSUS_THRESHOLD: ${CONSENSUS_THRESHOLD:-7}
+    volumes:
+      - ../app:/app/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  mlflow_artifacts:
