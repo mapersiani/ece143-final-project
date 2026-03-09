@@ -8,5 +8,5 @@ terraform/.terraform/
 terraform/terraform.tfstate*
 terraform/terraform.tfvars
 mlruns/
-*.txt
+
 
