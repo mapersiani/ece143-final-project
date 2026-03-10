@@ -136,6 +136,27 @@ def list_experiments():
     return result
 
 
+@router.post("/train")
+async def train_endpoint(
+    file: UploadFile = File(...),
+    target_col: str = "churn_risk_score",
+):
+    from app.ml.train import train as train_model
+
+    file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
+    content = await file.read()
+    with open(file_path, "wb") as f:
+        f.write(content)
+
+    try:
+        df = pd.read_csv(file_path)
+        result = train_model(df, target_col=target_col)
+        return result
+    except Exception as e:
+        logger.error(f"Training failed:\n{traceback.format_exc()}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+
 def _update_run(db: Session, job_id: str, **kwargs):
     # Helper to flush intermediate state to DB so /status reflects real progress
     db.query(PipelineRun).filter(PipelineRun.job_id == job_id).update(kwargs)

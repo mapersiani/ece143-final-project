@@ -59,12 +59,17 @@ def run_analyst(df: pd.DataFrame, db: Session) -> dict:
 
 
 def _estimate_clv(df: pd.DataFrame) -> float:
-    # Use monthly charges * tenure as CLV proxy if columns exist
     if "MonthlyCharges" in df.columns and "tenure" in df.columns:
         return float((df["MonthlyCharges"] * df["tenure"]).mean())
+    if "avg_transaction_value" in df.columns and "tenure_days" in df.columns:
+        monthly_value = df["avg_transaction_value"] / 30.0
+        months = df["tenure_days"] / 30.0
+        return float((monthly_value * months).mean())
+    if "avg_transaction_value" in df.columns:
+        return float(df["avg_transaction_value"].mean())
     if "MonthlyCharges" in df.columns:
         return float(df["MonthlyCharges"].mean() * 12)
-    return 500.0  # fallback default
+    return 500.0
 
 
 def _build_memory_hint(past_actions: list[dict], profile: dict | None) -> str:

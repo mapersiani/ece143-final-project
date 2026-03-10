@@ -1,0 +1,11 @@
+customerID,MonthlyCharges,tenure,Contract,TechSupport,InternetService
+C001,89.5,3,Month-to-month,No,Fiber optic
+C002,45.0,24,One year,Yes,DSL
+C003,110.2,2,Month-to-month,No,Fiber optic
+C004,29.0,60,Two year,Yes,DSL
+C005,95.0,5,Month-to-month,No,Fiber optic
+C006,70.0,8,Month-to-month,No,Fiber optic
+C007,55.0,15,One year,Yes,DSL
+C008,120.0,1,Month-to-month,No,Fiber optic
+C009,35.0,48,Two year,Yes,DSL
+C010,82.0,6,Month-to-month,No,Fiber optic
