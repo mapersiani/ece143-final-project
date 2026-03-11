@@ -32,6 +32,12 @@ FEATURE_NAMES = ["MonthlyCharges", "tenure", "Contract", "TechSupport", "Interne
 
 
 def predict_churn(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Return mock churn predictions for a fixed set of example customers.
+
+    :param df: Input DataFrame; currently ignored in favor of hardcoded mock data.
+    :return: A DataFrame with customer attributes, churn probability, and churn risk bucket.
+    """
     # Use mock data regardless of input — placeholder for real model
     mock_df = pd.DataFrame(MOCK_CUSTOMERS)
     mock_df["churn_probability"] = mock_df["customerID"].map(MOCK_CHURN_PROBABILITIES).fillna(0.5)
@@ -44,6 +50,13 @@ def predict_churn(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_top_churn_drivers(df: pd.DataFrame, top_n: int = 5) -> list[str]:
+    """
+    Compute the most frequent churn drivers across customers using mock SHAP-style data.
+
+    :param df: DataFrame of customers; unused but kept for future real model integration.
+    :param top_n: Maximum number of top driver names to return.
+    :return: A list of feature names ranked by frequency as top churn drivers.
+    """
     # Return hardcoded top drivers across the population
     driver_counts: dict[str, int] = {}
     for driver in MOCK_TOP_DRIVERS.values():
@@ -53,6 +66,12 @@ def get_top_churn_drivers(df: pd.DataFrame, top_n: int = 5) -> list[str]:
 
 
 def segment_customers(df: pd.DataFrame) -> dict[str, list]:
+    """
+    Group customers into segments keyed by their top churn driver.
+
+    :param df: DataFrame of customers that must include a `customerID` column.
+    :return: A mapping from driver-based segment IDs to lists of row indices or IDs.
+    """
     # Group customers by their top churn driver
     segments: dict[str, list] = {}
     for customer_id, driver in MOCK_TOP_DRIVERS.items():

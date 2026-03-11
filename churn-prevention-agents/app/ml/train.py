@@ -6,6 +6,12 @@ MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
 # Placeholder training script — logs a mock experiment to MLFlow
 # Replace this with real XGBoost training once model is ready
 def train(params: dict | None = None):
+    """
+    Log a placeholder churn model training run and feature importances to MLflow.
+
+    :param params: Optional extra parameters to log alongside mock defaults.
+    :return: A tuple of (None, list of feature names) mirroring a future train API.
+    """
     mlflow.set_tracking_uri(MLFLOW_URI)
     mlflow.set_experiment("churn-prediction")
 

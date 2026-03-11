@@ -33,6 +33,12 @@ class DebateState(TypedDict):
 # ── Nodes ────────────────────────────────────────────────────────────────────
 
 def analyst_node(state: DebateState) -> DebateState:
+    """
+    Run the analyst step to compute churn risk segments and initialize the debate.
+
+    :param state: Current debate state including input data and database session.
+    :return: Updated state with an analyst report and status set to debating.
+    """
     logger.info(f"[{state['job_id']}] Analyst running")
     report = run_analyst(state["df"], state["db"])
     logger.info(f"[{state['job_id']}] Analyst done — {report.get('total_at_risk', 0)} at-risk customers, {len(report.get('segments', []))} segments")
@@ -42,6 +48,12 @@ def analyst_node(state: DebateState) -> DebateState:
 
 
 def strategist_node(state: DebateState) -> DebateState:
+    """
+    Generate new strategist proposals and advance the debate round counter.
+
+    :param state: Current debate state including analyst report and prior critiques.
+    :return: Updated state with appended proposals and incremented round.
+    """
     round_num = state["round"] + 1
     logger.info(f"[{state['job_id']}] Strategist proposing (round {round_num})")
     proposals = run_strategist(state["analyst_report"], state["critiques"])
@@ -50,6 +62,12 @@ def strategist_node(state: DebateState) -> DebateState:
 
 
 def critic_node(state: DebateState) -> DebateState:
+    """
+    Evaluate the latest strategist proposals and append a critic response.
+
+    :param state: Current debate state containing proposals and analyst context.
+    :return: Updated state with an additional critique entry.
+    """
     logger.info(f"[{state['job_id']}] Critic evaluating (round {state['round']})")
     latest_proposals = state["proposals"][-1]
     critique = run_critic(latest_proposals, state["analyst_report"], state["db"])
@@ -60,6 +78,12 @@ def critic_node(state: DebateState) -> DebateState:
 
 
 def executor_node(state: DebateState) -> DebateState:
+    """
+    Convert the final approved proposal into executable campaigns and update status.
+
+    :param state: Current debate state including proposals and analyst report.
+    :return: Updated state with an approved plan, execution package, and status.
+    """
     logger.info(f"[{state['job_id']}] Executor generating action plan")
     approved = state["proposals"][-1]
     pkg = run_executor(approved, state["analyst_report"], state["db"], state["job_id"])
@@ -70,6 +94,12 @@ def executor_node(state: DebateState) -> DebateState:
 
 
 def escalate_node(state: DebateState) -> DebateState:
+    """
+    Mark the debate as escalated to human review after exhausting allowed rounds.
+
+    :param state: Current debate state when consensus was not reached.
+    :return: Updated state with status set to escalated.
+    """
     logger.info(f"[{state['job_id']}] Max rounds reached — escalating to human review")
     if state.get("progress_cb"):
         state["progress_cb"]("escalated")
@@ -79,6 +109,12 @@ def escalate_node(state: DebateState) -> DebateState:
 # ── Routing ──────────────────────────────────────────────────────────────────
 
 def route_after_critic(state: DebateState) -> str:
+    """
+    Decide the next node after a critic pass based on rating, decision, and round count.
+
+    :param state: Current debate state containing the latest critique and round info.
+    :return: A routing label of 'approved', 'escalate', or 'revise'.
+    """
     latest_critique = state["critiques"][-1]
     overall_rating = latest_critique.get("overall_rating", 0)
     decision = latest_critique.get("decision", "revise")
@@ -93,6 +129,11 @@ def route_after_critic(state: DebateState) -> str:
 # ── Graph Assembly ────────────────────────────────────────────────────────────
 
 def build_graph() -> StateGraph:
+    """
+    Assemble and compile the debate graph connecting analyst, strategist, critic, and executor.
+
+    :return: A compiled `StateGraph` ready to be invoked with a debate state.
+    """
     g = StateGraph(DebateState)
 
     g.add_node("analyst", analyst_node)
@@ -120,6 +161,11 @@ _graph = None
 
 
 def get_graph():
+    """
+    Return a singleton compiled debate graph, creating it on first access.
+
+    :return: A compiled `StateGraph` instance used to run the debate pipeline.
+    """
     global _graph
     if _graph is None:
         _graph = build_graph()
@@ -127,6 +173,15 @@ def get_graph():
 
 
 def run_pipeline(df: pd.DataFrame, db: Session, job_id: str, _progress_cb: Callable | None = None) -> dict:
+    """
+    Run the full debate pipeline from analyst through strategist, critic, and executor.
+
+    :param df: Input customer DataFrame for analysis.
+    :param db: Database session used by agents to read and persist context.
+    :param job_id: Identifier for this pipeline execution for logging and persistence.
+    :param _progress_cb: Optional callback invoked when major pipeline stages change.
+    :return: A dictionary summarizing final status, reports, plans, and debate log.
+    """
     graph = get_graph()
     initial_state = DebateState(
         df=df,

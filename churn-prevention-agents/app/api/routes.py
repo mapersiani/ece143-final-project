@@ -24,6 +24,12 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/upload", response_model=JobResponse)
 async def upload_dataset(file: UploadFile = File(...)):
+    """
+    Store an uploaded dataset file on disk and return its path.
+
+    :param file: The uploaded dataset file.
+    :return: A job response containing the stored file path.
+    """
     file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
     content = await file.read()
     with open(file_path, "wb") as f:
@@ -37,6 +43,14 @@ async def analyze(
     background_tasks: BackgroundTasks = BackgroundTasks(),
     db: Session = Depends(get_db),
 ):
+    """
+    Queue a churn analysis pipeline run for an uploaded dataset.
+
+    :param file: The uploaded dataset file to analyze.
+    :param background_tasks: FastAPI background task manager used to run the pipeline asynchronously.
+    :param db: Database session used to persist the pipeline run record.
+    :return: A job response with the created job ID and processing status.
+    """
     file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
     content = await file.read()
     with open(file_path, "wb") as f:
@@ -53,6 +67,12 @@ async def analyze(
 
 
 def _validate_uuid(job_id: str):
+    """
+    Validate that a job identifier is a valid UUID string.
+
+    :param job_id: The job identifier to validate.
+    :return: None; raises an HTTPException if the identifier is invalid.
+    """
     try:
         uuid.UUID(job_id)
     except ValueError:
@@ -61,6 +81,13 @@ def _validate_uuid(job_id: str):
 
 @router.get("/status/{job_id}", response_model=JobResponse)
 def get_status(job_id: str, db: Session = Depends(get_db)):
+    """
+    Retrieve the current status of a pipeline run.
+
+    :param job_id: The job identifier of the pipeline run.
+    :param db: Database session used to query the pipeline run.
+    :return: A job response with the current status, or raises 404 if not found.
+    """
     _validate_uuid(job_id)
     run = db.query(PipelineRun).filter(PipelineRun.job_id == job_id).first()
     if not run:
@@ -70,6 +97,13 @@ def get_status(job_id: str, db: Session = Depends(get_db)):
 
 @router.get("/results/{job_id}", response_model=PipelineResult)
 def get_results(job_id: str, db: Session = Depends(get_db)):
+    """
+    Fetch the final results and metadata for a completed or in-progress pipeline run.
+
+    :param job_id: The job identifier of the pipeline run.
+    :param db: Database session used to query the pipeline run.
+    :return: A pipeline result model with reports, debate log, and timestamps.
+    """
     _validate_uuid(job_id)
     run = db.query(PipelineRun).filter(PipelineRun.job_id == job_id).first()
     if not run:
@@ -89,12 +123,24 @@ def get_results(job_id: str, db: Session = Depends(get_db)):
 
 @router.post("/feedback")
 def submit_feedback(req: FeedbackRequest, db: Session = Depends(get_db)):
+    """
+    Record outcome feedback for a previously generated action.
+
+    :param req: Feedback payload containing the action identifier and outcome data.
+    :param db: Database session used to update the stored action outcome.
+    :return: A JSON object indicating that the outcome was recorded.
+    """
     update_outcome(db, req.action_id, req.outcome)
     return {"status": "ok", "message": "Outcome recorded"}
 
 
 @router.get("/models")
 def list_available_models():
+    """
+    List configured Gemini model names and all available text generation models.
+
+    :return: A JSON object describing configured strategist, critic, and executor models and available models.
+    """
     import google.generativeai as genai
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
     models = [
@@ -114,6 +160,11 @@ def list_available_models():
 
 @router.get("/experiments")
 def list_experiments():
+    """
+    List recent MLflow experiments and their most recent runs.
+
+    :return: A list of experiment summaries including IDs, names, and recent runs.
+    """
     mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5001"))
     client = mlflow.tracking.MlflowClient()
     experiments = client.search_experiments()
@@ -137,12 +188,26 @@ def list_experiments():
 
 
 def _update_run(db: Session, job_id: str, **kwargs):
-    # Helper to flush intermediate state to DB so /status reflects real progress
+    """
+    Update fields on a pipeline run row so that status endpoints reflect current progress.
+
+    :param db: Database session used to update the pipeline run.
+    :param job_id: The job identifier of the pipeline run to update.
+    :param kwargs: Column values to update on the pipeline run record.
+    :return: None.
+    """
     db.query(PipelineRun).filter(PipelineRun.job_id == job_id).update(kwargs)
     db.commit()
 
 
 def _run_pipeline_task(job_id: str, file_path: str):
+    """
+    Execute the full analyst->strategist<->critic->executor pipeline for a dataset file.
+
+    :param job_id: The job identifier associated with this pipeline run.
+    :param file_path: Path to the uploaded dataset file on disk.
+    :return: None; updates database records with progress and final results.
+    """
     from app.db.memory import SessionLocal
     db = SessionLocal()
     try:

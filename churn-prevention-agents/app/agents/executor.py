@@ -18,6 +18,11 @@ _llm = None
 
 
 def _get_llm():
+    """
+    Lazily construct and cache the executor language model client.
+
+    :return: A configured `ChatGoogleGenerativeAI` instance for execution planning.
+    """
     global _llm
     if _llm is None:
         model = os.getenv("GEMINI_EXECUTOR_MODEL", "gemini-2.0-flash-lite")
@@ -26,6 +31,15 @@ def _get_llm():
 
 
 def run_executor(approved_plan: dict, analyst_report: dict, db: Session, job_id: str) -> dict:
+    """
+    Turn an approved plan into executable campaigns and persist them as actions.
+
+    :param approved_plan: The final strategy plan chosen by the debate process.
+    :param analyst_report: Analyst summary used to enrich execution decisions.
+    :param db: Database session used to write campaign actions.
+    :param job_id: Identifier of the pipeline run for tracing created actions.
+    :return: An execution package describing all campaigns and metadata.
+    """
     context = f"APPROVED PLAN:\n{json.dumps(approved_plan, indent=2)}"
     context += f"\n\nANALYST REPORT CONTEXT:\n{json.dumps(analyst_report, indent=2)}"
 
@@ -46,6 +60,13 @@ def run_executor(approved_plan: dict, analyst_report: dict, db: Session, job_id:
 
 
 def _invoke_with_retry(context: str, job_id: str) -> dict:
+    """
+    Call the executor model with retries until valid JSON matching the schema is returned.
+
+    :param context: Prompt context containing the approved plan and analyst report.
+    :param job_id: Pipeline job identifier used for logging.
+    :return: Parsed execution package JSON produced by the model.
+    """
     last_error = None
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -70,6 +91,12 @@ def _invoke_with_retry(context: str, job_id: str) -> dict:
 
 
 def _validate_schema(data: dict):
+    """
+    Validate that the execution package conforms to the expected campaign schema.
+
+    :param data: Parsed JSON candidate execution package.
+    :return: None; raises ValueError if required keys or field constraints are violated.
+    """
     # Enforce required top-level keys and campaign field presence
     if "campaigns" not in data:
         raise ValueError("Missing required key: 'campaigns'")
@@ -86,6 +113,13 @@ def _validate_schema(data: dict):
 
 
 def _get_segment_count(analyst_report: dict, segment_id: str) -> int:
+    """
+    Look up how many customers belong to a given segment in the analyst report.
+
+    :param analyst_report: Analyst output containing segments and their sizes.
+    :param segment_id: Identifier of the segment whose count is requested.
+    :return: The number of customers in the segment, or 0 if not found.
+    """
     for seg in analyst_report.get("segments", []):
         if seg["segment_id"] == segment_id:
             return seg["count"]
@@ -93,6 +127,12 @@ def _get_segment_count(analyst_report: dict, segment_id: str) -> int:
 
 
 def _parse_json(content: str) -> dict:
+    """
+    Parse JSON execution output, stripping optional Markdown code fences.
+
+    :param content: Raw text content returned by the LLM.
+    :return: Parsed JSON object representing the execution package.
+    """
     cleaned = content.strip()
     # Strip markdown code fences if model ignores the no-fence instruction
     if cleaned.startswith("```"):

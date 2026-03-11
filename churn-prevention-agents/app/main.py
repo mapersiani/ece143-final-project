@@ -9,6 +9,12 @@ load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    Initialize application resources for the FastAPI lifespan context.
+
+    :param app: The FastAPI application instance.
+    :return: An asynchronous context manager that sets up and tears down resources.
+    """
     init_db()
     yield
 
@@ -25,4 +31,9 @@ app.include_router(router, prefix="/api/v1")
 
 @app.get("/health")
 def health():
+    """
+    Return a simple health check status for the API.
+
+    :return: A JSON object indicating service health.
+    """
     return {"status": "ok"}

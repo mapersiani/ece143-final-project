@@ -7,6 +7,13 @@ CHURN_THRESHOLD = 0.6
 
 
 def run_analyst(df: pd.DataFrame, db: Session) -> dict:
+    """
+    Analyze customer data to identify at-risk segments and summarize churn drivers.
+
+    :param df: Input customer DataFrame; currently ignored in favor of mock predictions.
+    :param db: Database session used to enrich segments with historical actions and profiles.
+    :return: A dictionary containing segments, total at-risk customers, and global top drivers.
+    """
     # predict_churn returns mock data regardless of input df
     predictions = predict_churn(df)
     at_risk = predictions[predictions["churn_probability"] >= CHURN_THRESHOLD].copy()
@@ -59,6 +66,12 @@ def run_analyst(df: pd.DataFrame, db: Session) -> dict:
 
 
 def _estimate_clv(df: pd.DataFrame) -> float:
+    """
+    Estimate a simple customer lifetime value proxy from the at-risk cohort.
+
+    :param df: DataFrame of at-risk customers.
+    :return: Estimated average CLV based on available billing and tenure columns.
+    """
     # Use monthly charges * tenure as CLV proxy if columns exist
     if "MonthlyCharges" in df.columns and "tenure" in df.columns:
         return float((df["MonthlyCharges"] * df["tenure"]).mean())
@@ -68,6 +81,13 @@ def _estimate_clv(df: pd.DataFrame) -> float:
 
 
 def _build_memory_hint(past_actions: list[dict], profile: dict | None) -> str:
+    """
+    Produce a short human-readable summary of historical performance for a segment.
+
+    :param past_actions: Recent actions and outcomes for the segment.
+    :param profile: Aggregated segment profile statistics, if available.
+    :return: A concise hint string describing response rates and last campaign outcome.
+    """
     hints = []
     if profile and profile.get("avg_response_rate"):
         hints.append(f"Historical avg response rate: {profile['avg_response_rate']:.0%}")

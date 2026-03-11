@@ -10,6 +10,11 @@ _llm = None
 
 
 def _get_llm():
+    """
+    Lazily construct and cache the strategist language model client.
+
+    :return: A configured `ChatGoogleGenerativeAI` instance for strategist prompts.
+    """
     global _llm
     if _llm is None:
         model = os.getenv("GEMINI_STRATEGIST_MODEL", "gemini-2.5-flash")
@@ -18,6 +23,13 @@ def _get_llm():
 
 
 def run_strategist(analyst_report: dict, previous_critiques: list[dict]) -> dict:
+    """
+    Generate updated retention strategy proposals based on the analyst report and prior critiques.
+
+    :param analyst_report: Structured summary of at-risk segments and churn drivers.
+    :param previous_critiques: List of previous critic responses used to refine proposals.
+    :return: A dictionary of strategist proposals parsed from the LLM response.
+    """
     context = _build_context(analyst_report, previous_critiques)
     response = _get_llm().invoke([HumanMessage(content=f"{_SYSTEM_PROMPT}\n\n{context}")])
 
@@ -26,6 +38,13 @@ def run_strategist(analyst_report: dict, previous_critiques: list[dict]) -> dict
 
 
 def _build_context(analyst_report: dict, previous_critiques: list[dict]) -> str:
+    """
+    Build the concatenated text context fed into the strategist model.
+
+    :param analyst_report: Structured analyst output describing risk segments and drivers.
+    :param previous_critiques: Historical critic feedback used to inform revisions.
+    :return: A formatted string containing the analyst report and latest critique context.
+    """
     ctx = f"ANALYST REPORT:\n{json.dumps(analyst_report, indent=2)}"
 
     if previous_critiques:
@@ -39,6 +58,12 @@ def _build_context(analyst_report: dict, previous_critiques: list[dict]) -> str:
 
 
 def _parse_json(content: str) -> dict:
+    """
+    Parse JSON strategist output, handling optional Markdown code fences.
+
+    :param content: Raw text content returned by the LLM.
+    :return: Parsed JSON object representing strategist proposals.
+    """
     # Strip markdown code fences if present
     cleaned = content.strip()
     if cleaned.startswith("```"):
