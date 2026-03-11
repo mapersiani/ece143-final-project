@@ -29,8 +29,7 @@ churn-prevention-agents/
 │   ├── 07_tenure_distribution.png
 │   └── 08_churn_by_price_sensitivity.png
 ├── scripts/
-│   ├── eda_plots.py                # Standalone script to regenerate all figures
-│   └── enhance_pptx.py             # Script to add slides to the presentation
+│   └── eda_plots.py                # Standalone script to regenerate all figures
 ├── app/                            # FastAPI agentic pipeline application
 │   ├── main.py                     # App entrypoint
 │   ├── agents/                     # LangGraph agent implementations
@@ -149,7 +148,6 @@ curl http://localhost:8000/api/v1/results/{JOB_ID}
 | python-dotenv | >= 1.0 | Environment variable loading |
 | python-multipart | >= 0.0.9 | File upload handling |
 | pydantic | >= 2.7 | Data validation |
-| python-pptx | >= 1.0 | PowerPoint generation (scripts only) |
 
 ## Key Results
 
