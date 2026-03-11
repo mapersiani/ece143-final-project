@@ -18,16 +18,5 @@ ENV/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data (keep placeholders)
-data/*
-!data/.gitkeep
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
-# Reports
-reports/figures/*
-!reports/figures/.gitkeep
-
 # OS
 .DS_Store
