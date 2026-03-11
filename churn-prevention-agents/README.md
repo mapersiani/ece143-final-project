@@ -52,9 +52,6 @@ app/
 │   ├── strategist.py    # Strategy proposals (Gemini)
 │   ├── critic.py        # Critique + memory queries (Gemini)
 │   └── executor.py      # Action generation + memory writes
-├── ml/
-│   ├── train.py         # MLFlow-tracked XGBoost training
-│   └── model.py         # Inference + SHAP
 └── db/
     ├── models.py        # SQLAlchemy ORM
     └── memory.py        # Memory store queries
@@ -69,7 +66,6 @@ tests/                   # Unit tests
 | Variable | Description | Default |
 |---|---|---|
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://churn_user:churn_pass@localhost:5432/churn_db` |
-| `MLFLOW_TRACKING_URI` | MLFlow server URL | `http://localhost:5000` |
 | `GOOGLE_API_KEY` | Gemini API key | required |
 | `MAX_DEBATE_ROUNDS` | Max debate rounds before escalation | `5` |
 | `CONSENSUS_THRESHOLD` | Critic rating threshold (1-10) for approval | `7` |
