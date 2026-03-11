@@ -40,23 +40,6 @@ curl -X POST http://localhost:8000/api/v1/analyze \
 curl http://localhost:8000/api/v1/results/{job_id}
 ```
 
-## Run Tests
-
-```bash
-pip install pytest
-pytest tests/
-```
-
-## Deploy to GCP
-
-```bash
-# 1. Build and push Docker image
-docker build -t us-central1-docker.pkg.dev/YOUR_PROJECT/churn-prevention/churn-prevention-app:latest -f docker/Dockerfile .
-docker push us-central1-docker.pkg.dev/YOUR_PROJECT/churn-prevention/churn-prevention-app:latest
-
-# 3. Outputs will show the app and MLFlow URLs
-```
-
 ## Project Structure
 
 ```
