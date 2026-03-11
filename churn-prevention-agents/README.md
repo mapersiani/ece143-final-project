@@ -27,16 +27,6 @@ docker compose up --build
 # API Docs:   http://localhost:8000/docs
 ```
 
-## Train the Churn Model
-
-```bash
-# From inside the app container or locally with deps installed
-python -m app.ml.train
-# Right now this is not implemented as we have not finalized our model and training pipeline yet.
-# Model saved to models/churn_model.joblib
-# Run tracked in MLFlow at http://localhost:5000
-```
-
 ## Run the Pipeline
 
 ```bash
@@ -63,14 +53,6 @@ pytest tests/
 # 1. Build and push Docker image
 docker build -t us-central1-docker.pkg.dev/YOUR_PROJECT/churn-prevention/churn-prevention-app:latest -f docker/Dockerfile .
 docker push us-central1-docker.pkg.dev/YOUR_PROJECT/churn-prevention/churn-prevention-app:latest
-
-# 2. Deploy infrastructure
-cd terraform
-terraform init
-terraform apply \
-  -var="project_id=YOUR_PROJECT" \
-  -var="db_password=your-secure-password" \
-  -var="google_api_key=your-gemini-key"
 
 # 3. Outputs will show the app and MLFlow URLs
 ```
