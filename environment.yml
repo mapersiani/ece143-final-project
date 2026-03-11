@@ -14,4 +14,3 @@ dependencies:
   - pytest
   - black
   - ruff
-  - pre-commit
