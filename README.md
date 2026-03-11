@@ -12,10 +12,10 @@ TBD: One-paragraph summary of the project, data source, and the main question.
 - Raghusrinivasan Venkatesan
 
 ## Data Source
-- TBD (public dataset link and access notes)
+- Customer Churn Dataset from HuggingFace - (link)
 
 ## Research Question
-- TBD (primary question and any supporting sub-questions)
+- Factors driving customer churn and personalized retention strategy generation
 
 ## Repo Structure
 - `src/`: Reusable Python modules and utilities
@@ -27,6 +27,41 @@ TBD: One-paragraph summary of the project, data source, and the main question.
 - `reports/figures/`: Exported plots and figures for the presentation
 - `scripts/`: One-off scripts for data download, cleaning, or preprocessing
 - `docs/`: Proposal and presentation references
+- `churn-prevention-agents/`: Agentic churn prevention app (see below)
+
+### Churn Prevention Agents (`churn-prevention-agents/`) — file structure
+
+```
+churn-prevention-agents/
+├── app/
+│   ├── main.py                 # FastAPI entrypoint
+│   ├── api/
+│   │   ├── routes.py           # Endpoints: /analyze, /results, /status, /models, /feedback, /experiments
+│   │   └── schemas.py          # Pydantic request/response models
+│   ├── agents/
+│   │   ├── graph.py            # LangGraph state machine (analyst → strategist ↔ critic → executor)
+│   │   ├── analyst.py          # Segmentation + memory lookup
+│   │   ├── strategist.py       # Strategy proposals (Gemini)
+│   │   ├── critic.py           # Critique + memory queries (Gemini)
+│   │   ├── executor.py        # Campaign generation + memory writes (Gemini)
+│   │   └── prompts/
+│   │       ├── strategist.txt
+│   │       ├── critic.txt
+│   │       └── executor.txt
+│   └── db/
+│       ├── models.py           # SQLAlchemy: pipeline_runs, actions_history, segment_profiles, constraints
+│       └── memory.py           # Memory store read/write
+├── docker/
+│   ├── Dockerfile
+│   └── docker-compose.yml      # app + postgres + mlflow
+├── tests/
+│   └── test_agents.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── Makefile
+└── README.md
+```
 
 ## Quickstart (Conda)
 1. Create environment:
@@ -43,4 +78,5 @@ TBD: One-paragraph summary of the project, data source, and the main question.
 - Use notebooks for exploration and prototyping.
 - Move reusable code into `src/` as it stabilizes.
 - Keep data under `data/` and do not commit raw datasets.
-- Run tests with `pytest` before opening PRs.
+- Send requests to the `/analyze` endpoint after inferring results from the trained model
+- Poll the `/results` endpoint for getting the insights from the model

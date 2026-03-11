@@ -57,7 +57,6 @@ app/
     └── memory.py        # Memory store queries
 
 docker/                  # Dockerfile + docker-compose
-terraform/               # GCP infrastructure
 tests/                   # Unit tests
 ```
 
