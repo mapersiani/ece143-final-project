@@ -1,0 +1,8 @@
+customerID,MonthlyCharges,tenure,Contract,TechSupport,InternetService, CustomerChurnSegment
+C001,89.5,3,Month-to-month,No,Fiber optic, VIP-at-risk
+C002,45.0,24,One year,Yes,DSL, Standard-at-risk
+
+
+
+
+

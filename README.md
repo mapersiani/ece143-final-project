@@ -12,7 +12,7 @@ TBD: One-paragraph summary of the project, data source, and the main question.
 - Raghusrinivasan Venkatesan
 
 ## Data Source
-- Customer Churn Dataset from HuggingFace - (link)
+- Customer Churn Dataset from HuggingFace - https://huggingface.co/datasets/d0r1h/customer_churn
 
 ## Research Question
 - Factors driving customer churn and personalized retention strategy generation
