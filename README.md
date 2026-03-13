@@ -33,10 +33,15 @@ app/                 # Main application source code
 │   ├── strategist.py# Strategy proposals (Gemini)
 │   ├── critic.py    # Critique + memory queries (Gemini)
 │   └── executor.py  # Action generation + memory writes
-└── db/              # Database models and memory management
-    ├── models.py    # SQLAlchemy ORM
-    └── memory.py    # Memory store queries
-data/                # Raw and processed datasets (not tracked in git)
+├── db/              # Database models and memory management
+│   ├── models.py    # SQLAlchemy ORM
+│   └── memory.py    # Memory store queries
+└── ml/              # Extra ML Exploration
+    └── preprocess.py# Modular code for preprocessing
+    └── ml_models.py # Modular code for training, predicting, and evaluating our ml models
+    └── segments.py  # Modular code for segmenting customers with probabilities and potential action
+    └── setup.py     # Modular code to run the churn prediction pipeline. 
+dataset/             # Raw dataset 
 docker/              # Dockerfile + docker-compose for running locally
 docs/                # Project proposal and presentation references
 notebooks/           # Exploration and analysis notebooks
@@ -87,8 +92,24 @@ This is the recommended way to test the full pipeline (API + PostgreSQL + MLFlow
    # Poll for results using the returned job_id
    curl http://localhost:8000/api/v1/results/{job_id}
    ```
+### 2. Churn Prediction Pipeline
+If you want to explore our initial insights regarding churn risks and automation of how to prevent it. 
+1. **Create the environment**:
+   ```bash
+   conda env create -f environment.yml
+   ```
+2. **Activate the environment**:
+   ```bash
+   conda activate ece143-final
+   ```
+3. **Run Setup code**:
+   ```bash
+   cd app/ml
+   python setup.py
+   ```
+This will preprocess, train, and generate segments and suggested actions regarding the dataset found in `dataset/customer_churn.csv`. The dataset contains specific columns so if adding your own churn data, be sure to match the desired columns / features. Results containing actionable outputs and marketing campaign ideas with be released into the `outputs/` directory. 
 
-### 2. Notebooks & Data Exploration (Conda)
+### 3. Notebooks & Data Exploration (Conda)
 If you only want to explore the data using Jupyter notebooks:
 1. **Create the environment**:
    ```bash
